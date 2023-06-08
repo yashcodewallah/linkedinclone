@@ -14,7 +14,7 @@ const Main = (props) => {
   }, []);
 
 const handleLike=(type,id,description)=>{
-props.updateArticle({type,id,email:description})
+props.updateArticle({type,id,email:props.user.email})
 }
 
   const handleClick = (e) => {
@@ -324,6 +324,11 @@ const SharedImg = styled.div`
     width: auto;
     height:350px;
   }
+  @media(max-width:768px){
+   img{
+    max-width: 220px;
+  }
+}
  `;
 
 const SocialCount = styled.ul`

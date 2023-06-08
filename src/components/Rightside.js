@@ -37,7 +37,7 @@ return(
     </FollowCard>
     <BannerCard>
       <img
-        src="https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg"
+        src="https://img.freepik.com/free-photo/person-holding-linkedin-icon_53876-65402.jpg?w=740&t=st=1685989965~exp=1685990565~hmac=c2b7d2d82e1b00fa71148550d2be40a8c6b37c712226d86c763a39fa5459d0d2"
         alt=""
       />
     </BannerCard>

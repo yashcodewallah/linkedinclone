@@ -1,36 +1,46 @@
 import React from 'react'
 import styled from 'styled-components'
+import { signInAPI } from '../store/actions/actions'
+import { connect } from "react-redux";
 
- const login = (props) => {
+
+
+
+const Login = (props) => {
+
+  const  handleLogin =async () => {
+    props.signIn()
+ }
+
   return (
     <Container>
-        <Nav>
-            <a href='/'><img src="/images/login-logo.svg" alt='' /></a>
-            <div>
-                <Join>Join now</Join>
-                <Signin>Sign in</Signin>
-            </div>
-        </Nav>
-        <Section>
-         <Hero>
-            <h1>Welcome to your professional community</h1>
-            <img src="/images/login-hero.svg" alt='' />
-         </Hero>
-         <Form>
-            <Google>
+      <Nav>
+        <a href='/'><img src="/images/login-logo.svg" alt='' /></a>
+        <div>
+          <Join>Join now</Join>
+          <Signin>Sign in</Signin>
+        </div>
+      </Nav>
+      <Section>
+        <Hero>
+          <h1>Welcome to your professional community</h1>
+          <img src="/images/login-hero.svg" alt='' />
+        </Hero>
+        <Form>
+          <Google onClick={handleLogin}>
             <img src="/images/google.svg" alt='' />
             sign in with google
-            </Google>
-         </Form>
-        </Section>
+          </Google>
+        </Form>
+      </Section>
     </Container>
   )
 }
 
-const Container=styled.div`
+const Container = styled.div`
 padding:0px;
 `;
-const Nav=styled.nav`
+const Nav = styled.nav`
 max-width:1128px;
 margin:auto;
 padding:12px 0px 16px;
@@ -48,7 +58,7 @@ flex-wrap:nowrap;
     }
 }
 `;
-const Join=styled.a`
+const Join = styled.a`
 font-size: 16px;
 padding: 10px 12px;
 text-decoration: none;
@@ -62,7 +72,7 @@ border-radius: 4px;
 }
 `
 
-const Signin=styled.a`
+const Signin = styled.a`
 box-shadow: inset 0 0 0 1px #0a66c2;
 color: #0a66c2;
 border-radius: 24px;
@@ -81,7 +91,7 @@ text-decoration: none;
 }
 
 `
-const Section=styled.section`
+const Section = styled.section`
 display: flex;
 align-content: flex-start;
 min-height: 700px;
@@ -103,7 +113,7 @@ margin: auto;
 
 `;
 
-const Hero=styled.div`
+const Hero = styled.div`
 width:100%;
 h1{
     padding-bottom: 0px;
@@ -135,7 +145,7 @@ img{
 }
 `;
 
-const Form=styled.div`
+const Form = styled.div`
 margin-top: 100px;
 width: 400px;
 @media(max-width:768px){
@@ -144,7 +154,7 @@ width: 400px;
 }
 `;
 
-const Google=styled.button`
+const Google = styled.button`
 display:flex;
 justify-content: center;
 background-color: #fff;
@@ -164,4 +174,16 @@ background-color: rgba(207,207,207,0.25);
 color: rgba(0 ,0,0,0.75);
 }
 `;
-export default login;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  signIn: () => dispatch(signInAPI()),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

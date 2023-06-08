@@ -1,10 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
-const header = () => {
+import {signOutApi } from '../store/actions/actions';
+import { connect } from 'react-redux'
+import { useNavigate } from 'react-router';
+
+
+const Header = (props) => {
+
+    const navigate=useNavigate();
+
+const handleLogout=()=>{
+    props.signOut()
+    navigate("/")    
+}
+
   return (
     <Container>
     <Content>
-        <Logo><a href='/home'><img src="/images/home-logo.svg" alt=""/></a></Logo>
+        <Logo><a href='/home'><img src="/linkedin.png" alt=""/></a></Logo>
         <Search>
             <div>
                 <input type="text" placeholder="Search" />
@@ -39,12 +52,12 @@ const header = () => {
          </Navlist>
          <User>
             <a>
-                <img src="/images/user.svg" alt=''></img>
+                {props.user && props.user.photoURL ? <img src={props.user.photoURL} alt="" /> :<img src="/images/user.svg" alt=''></img>}
                 <span>Me
                 <img src="/images/down-icon.svg" alt=''></img>                
                 </span>
             </a>
-            <SignOut>
+            <SignOut onClick={handleLogout}>
                 signout
             </SignOut>
          </User>
@@ -80,6 +93,13 @@ max-width: 1128px;
 const Logo=styled.span`
 margin-right: 8px;
 font-size: 0;
+img{
+
+    width: 30px;
+    z-index: 1;
+    border-radius: 0 2px 2px 0;
+    pointer-events: none;
+}
 `
 const Search=styled.div`
 opacity: 1;
@@ -123,6 +143,7 @@ position: fixed;
 left: 0px;
 bottom: 0px;
 background-color: white;
+z-index:99;
 width: 100%;
 }
 `
@@ -148,8 +169,7 @@ list-style-type: none;
 
 
 const Navlist=styled.li`
-display: flex;
-align-items: center;
+
 
 a{
     align-items: center;
@@ -171,7 +191,7 @@ a{
         /* align-items: center; */
     }
     @media (max-width:768px){
-        min-height: 70px;
+        min-height: 50px;
     }
 }
 
@@ -219,7 +239,17 @@ const Work=styled(User)`
 border-left:1px solid rgba(0,0,0,0.08);
 `
 
-
-
-
-export default header
+const mapStateToProps = (state) =>{
+    return{
+      user:state.userState.user,
+    };
+  }
+  
+  const mapDispatchToProps = dispatch =>{
+    return{
+        signOut: () => dispatch(signOutApi ()),
+    }
+  };
+  
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(Header);

@@ -1,12 +1,17 @@
 import React from 'react'
-import {Outlet} from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import Leftside from './Leftside'
 import Main from './main'
+import { Navigate, Redirect } from 'react-router'
 import Rightside from './Rightside'
-const home = () => {
+import { connect } from 'react-redux'
+
+const Home = (props) => {
+
   return (
     <Container>
+     
     <Outlet />
     <Section>
       <h5><a>Hiring in a hurry?-</a></h5>
@@ -59,7 +64,7 @@ margin-top: 10px;
 const Layout=styled.div`
 display:flex ;
 justify-content: space-between;
-
+gap:20px;
 margin: 25px 0;
 
 @media(max-width:768px){
@@ -70,6 +75,12 @@ margin: 25px 0;
 }
 `
 
+const mapStateToProps = (state) =>{
+  return{
+    user:state.userState.user,
+  };
+}
 
 
-export default home
+
+export default connect(mapStateToProps)(Home);
